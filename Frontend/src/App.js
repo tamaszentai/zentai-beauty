@@ -1,5 +1,5 @@
-import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import React, {useState} from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Navigation from "./Components/Navigation/Navigation";
 import Biography from "./Pages/Biography";
@@ -8,32 +8,70 @@ import Gallery from './Pages/Gallery';
 import Pricelist from './Pages/Pricelist';
 import Contact from './Pages/Contact';
 import Auth from './Pages/Auth';
+import Admin from './Pages/Admin';
 
 function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  let routes;
+  if(loggedIn) {
+    routes = (
+      <Switch>
+      <Route path="/Biography" exact>
+      <Biography />
+    </Route>
+    <Route path="/Facilities" exact>
+      <Facilities />
+    </Route>
+    <Route path="/Gallery" exact>
+      <Gallery />
+    </Route>
+    <Route path="/Pricelist" exact>
+      <Pricelist />
+    </Route> 
+    <Route path="/Contact" exact>
+      <Contact />
+    </Route>
+    <Route path="/Login" exact>
+      <Auth />
+    </Route>
+    <Route path="/Admin" exact>
+      <Admin />
+    </Route>
+    </Switch>
+    );
+  } else {
+    routes = (
+      <Switch>
+      <Route path="/Biography" exact>
+      <Biography />
+    </Route>
+    <Route path="/Facilities" exact>
+      <Facilities />
+    </Route>
+    <Route path="/Gallery" exact>
+      <Gallery />
+    </Route>
+    <Route path="/Pricelist" exact>
+      <Pricelist />
+    </Route> 
+    <Route path="/Contact" exact>
+      <Contact />
+    </Route>
+    <Route path="/Login" exact>
+      <Auth />
+    </Route>
+    </Switch>
+    )
+
+  }
+
   return (
     <Router>
       <h1>Zentai-Beauty</h1>
       <Navigation />
-      {/* <Route exact path="/" component={Home} /> */}
-      <Route path="/Biography" exact>
-        <Biography />
-      </Route>
-      <Route path="/Facilities" exact>
-        <Facilities />
-      </Route>
-      <Route path="/Gallery" exact>
-        <Gallery />
-      </Route>
-      <Route path="/Pricelist" exact>
-        <Pricelist />
-      </Route> 
-      <Route path="/Contact" exact>
-        <Contact />
-      </Route>
-      <Route path="/Admin" exact>
-        <Auth />
-      </Route>
-    </Router>
+      <main>{routes}</main>
+      </Router>
   );
 }
 

@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Biography = () => {
   return(
-    <div>
-
+    <div className="bio">
     </div>
   )
 }
