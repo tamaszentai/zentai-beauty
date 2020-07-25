@@ -11,7 +11,7 @@ import Auth from './Pages/Auth';
 import Admin from './Pages/Admin';
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
 
   let routes;
   if(loggedIn) {
@@ -69,7 +69,7 @@ function App() {
   return (
     <Router>
       <h1>Zentai-Beauty</h1>
-      <Navigation />
+      <Navigation loggedIn={loggedIn}/>
       <main>{routes}</main>
       </Router>
   );
