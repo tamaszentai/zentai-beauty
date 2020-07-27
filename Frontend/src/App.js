@@ -3,12 +3,10 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Navigation from "./Components/Navigation/Navigation";
 import Biography from "./Pages/Biography";
-import Facilities from "./Pages/Facilities";
 import Gallery from './Pages/Gallery';
 import Pricelist from './Pages/Pricelist';
 import Contact from './Pages/Contact';
 import Auth from './Pages/Auth';
-import Admin from './Pages/Admin';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -18,16 +16,13 @@ function App() {
     routes = (
       <Switch>
       <Route path="/Biography" exact>
-      <Biography />
-    </Route>
-    <Route path="/Facilities" exact>
-      <Facilities />
+      <Biography loggedIn={loggedIn}/>
     </Route>
     <Route path="/Gallery" exact>
-      <Gallery />
+      <Gallery loggedIn={loggedIn}/>
     </Route>
     <Route path="/Pricelist" exact>
-      <Pricelist />
+      <Pricelist loggedIn={loggedIn}/>
     </Route> 
     <Route path="/Contact" exact>
       <Contact />
@@ -35,19 +30,13 @@ function App() {
     <Route path="/Login" exact>
       <Auth />
     </Route>
-    <Route path="/Admin" exact>
-      <Admin />
-    </Route>
     </Switch>
     );
   } else {
     routes = (
       <Switch>
       <Route path="/Biography" exact>
-      <Biography />
-    </Route>
-    <Route path="/Facilities" exact>
-      <Facilities />
+      <Biography loggedIn={loggedIn}/>
     </Route>
     <Route path="/Gallery" exact>
       <Gallery />

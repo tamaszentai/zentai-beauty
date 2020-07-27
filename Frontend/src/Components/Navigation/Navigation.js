@@ -9,22 +9,20 @@ const Navigation = (props) => {
   if (props.loggedIn) {
     links = (
       <div className="navigation">
-        <Link to="/Biography">Magamról</Link>
-        <Link to="/Facilities">Szolgáltatások</Link>
+        <Link to="/Biography">Bemutatkozás</Link>
         <Link to="/Gallery">Galéria</Link>
-        <Link to="/Pricelist">Árlista</Link>
-        <Link to="/Contact">Kapcsolat</Link>
-        <Link to="/Admin">Admin</Link>
+        <Link to="/Pricelist">Árjegyzék</Link>
+        <Link to="/Contact">Elérhetőségek</Link>
+        <Link to="/Logout">Kijelentkezés</Link>
       </div>
     );
   } else {
     links = (
       <div className="navigation">
-        <Link to="/Biography">Magamról</Link>
-        <Link to="/Facilities">Szolgáltatások</Link>
+        <Link to="/Biography">Bemutatkozás</Link>
         <Link to="/Gallery">Galéria</Link>
-        <Link to="/Pricelist">Árlista</Link>
-        <Link to="/Contact">Kapcsolat</Link>
+        <Link to="/Pricelist">Árjegyzék</Link>
+        <Link to="/Contact">Elérhetőségek</Link>
       </div>
     );
   }
