@@ -1,34 +1,21 @@
 import React from "react";
-import { Link, Switch } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./Navigation.css";
 
-const Navigation = (props) => {
-  let links;
+const Navigation = () => {
 
-  if (props.loggedIn) {
-    links = (
-      <div className="navigation">
-        <Link to="/Biography">Bemutatkozás</Link>
-        <Link to="/Gallery">Galéria</Link>
-        <Link to="/Pricelist">Árjegyzék</Link>
-        <Link to="/Contact">Elérhetőségek</Link>
-        <Link to="/Logout">Kijelentkezés</Link>
-      </div>
-    );
-  } else {
-    links = (
-      <div className="navigation">
-        <Link to="/Biography">Bemutatkozás</Link>
-        <Link to="/Gallery">Galéria</Link>
-        <Link to="/Pricelist">Árjegyzék</Link>
-        <Link to="/Contact">Elérhetőségek</Link>
-      </div>
-    );
-  }
   return (
     <React.Fragment>
-      <main>{links}</main>
+      <main>
+        <div className="navigation">
+          <Link to="/Biography">Bemutatkozás</Link>
+          <Link to="/Gallery">Galéria</Link>
+          <Link to="/Pricelist">Árjegyzék</Link>
+          <Link to="/Contact">Elérhetőségek</Link>
+          <Link to="/Login">Bejelentkezés</Link>
+        </div>
+      </main>
     </React.Fragment>
   );
 };

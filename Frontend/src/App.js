@@ -9,7 +9,18 @@ import Contact from './Pages/Contact';
 import Auth from './Pages/Auth';
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const userName = "Betti";
+  const password = "halacska";
+
+  const login = () => {
+    setLoggedIn(true);
+  };
+
+  const logout = () => {
+    setLoggedIn(false);
+  };
+
 
   let routes;
   if(loggedIn) {
@@ -28,7 +39,7 @@ function App() {
       <Contact />
     </Route>
     <Route path="/Login" exact>
-      <Auth />
+      <Auth login={login} userName={userName} password={password}/>
     </Route>
     </Switch>
     );
@@ -48,7 +59,7 @@ function App() {
       <Contact />
     </Route>
     <Route path="/Login" exact>
-      <Auth />
+      <Auth login={login} userName={userName} password={password}/>
     </Route>
     </Switch>
     )
@@ -58,7 +69,8 @@ function App() {
   return (
     <Router>
       <h1>Zentai-Beauty</h1>
-      <Navigation loggedIn={loggedIn}/>
+      <Navigation />
+      <button onClick={logout}>Kijelentkezés</button>
       <main>{routes}</main>
       </Router>
   );
