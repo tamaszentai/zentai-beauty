@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { Redirect } from "react-router-dom";
 import "./Auth.css";
+import { useHistory } from "react-router-dom";
 
 const Auth = (props) => {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
+
+  const history = useHistory();
 
   const userNameChangeHandler = (event) => {
     setUserName(event.target.value);
@@ -18,14 +20,9 @@ const Auth = (props) => {
     event.preventDefault();
     if (props.userName === userName && props.password === password) {
       props.login();
-      return <Redirect to='/Biography' />
-    } 
-    return <Redirect to='/Auth' />
+      history.push("/Biography");
+    }
   };
-
-  // const loginName = (event) => {
-  //   props.loginNameChangeHandler();
-  // }
 
   return (
     <div className="form">

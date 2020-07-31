@@ -1,8 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 
 const Biography = (props) => {
   const [bio, setBio] = useState();
-  const [dummyBio, setDummyBio] = useState("Hellobello, Betti vagyok a teleprol")
+  const [dummyBio, setDummyBio] = useState('')
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/bio")
+    .then(res => {
+        res.data.map((biography, index) => {
+          setDummyBio(biography.bio)
+        })
+      });
+},[])  
+
+  // useEffect(() => {
+  //   const fetchBio = async () => {
+  //     try {
+  //       const responseData = await axios(
+  //         "http://localhost:5000/api/bio"
+  //       );
+  //       const data = responseData.data;
+  //       console.log(data)
+  //       setDummyBio(data.bio);
+  //     } catch (err) {}
+  //   };
+  //   fetchBio();
+  // }, []);
 
   let bioBox;
 
