@@ -1,4 +1,3 @@
-const DUMMY_BIO = { bio: "Hello, Betti vagyok a teleprol" };
 const bioModel = require("../models/bio");
 
 const getBio = async (req, res, next) => {
@@ -22,10 +21,9 @@ const createBio = async (req, res, next) => {
 };
 
 const updateBio = async (req, res, next) => {
+  const bio = await bioModel.findByIdAndUpdate(req.params.id, req.body);
   try {
-   const bio =  await bioModel.findByIdAndUpdate(req.params.id, req.body);
-    await bio.save();
-    await res.send(bio);
+  res.json(bio);
   } catch (err) {
     res.status(500).send(err);
   }

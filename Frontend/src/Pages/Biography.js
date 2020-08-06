@@ -1,32 +1,19 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import axios from "axios";
+
+import LoadingSpinner from '../Components/LoadingSpinner/loadingSpinner';
 
 const Biography = (props) => {
   const [bio, setBio] = useState();
-  const [dummyBio, setDummyBio] = useState('')
+  const [originalBio, setOriginalBio] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/bio")
-    .then(res => {
-        res.data.map((biography, index) => {
-          setDummyBio(biography.bio)
-        })
+    axios.get("http://localhost:5000/api/bio").then((res) => {
+      res.data.map((biography, index) => {
+        setOriginalBio(biography.bio);
       });
-},[])  
-
-  // useEffect(() => {
-  //   const fetchBio = async () => {
-  //     try {
-  //       const responseData = await axios(
-  //         "http://localhost:5000/api/bio"
-  //       );
-  //       const data = responseData.data;
-  //       console.log(data)
-  //       setDummyBio(data.bio);
-  //     } catch (err) {}
-  //   };
-  //   fetchBio();
-  // }, []);
+    });
+  }, []);
 
   let bioBox;
 
@@ -37,7 +24,10 @@ const Biography = (props) => {
 
   const bioUpdateHandler = (event) => {
     event.preventDefault();
-    setDummyBio(bio);
+    axios.patch("http://localhost:5000/api/bio/5f242ecbc8c0e00aa2650206", {
+      bio: bio,
+    });
+    setOriginalBio(bio);
   };
 
   if (props.loggedIn) {
@@ -46,7 +36,7 @@ const Biography = (props) => {
         <textarea
           cols="30"
           rows="5"
-          placeholder={bio}
+          placeholder={originalBio}
           onChange={bioChangeHandler}
         ></textarea>
         <button>Update</button>
@@ -58,7 +48,7 @@ const Biography = (props) => {
     <div className="bio">
       <h1>Bemutatkozás</h1>
       {bioBox}
-      <h3>{dummyBio}</h3>
+      <h3>{originalBio}</h3>
     </div>
   );
 };

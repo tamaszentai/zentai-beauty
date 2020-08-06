@@ -1,15 +1,16 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Navigation from "./Components/Navigation/Navigation";
 import Biography from "./Pages/Biography";
-import Gallery from './Pages/Gallery';
-import Pricelist from './Pages/Pricelist';
-import Contact from './Pages/Contact';
-import Auth from './Pages/Auth';
+import Gallery from "./Pages/Gallery";
+import Pricelist from "./Pages/Pricelist";
+import Contact from "./Pages/Contact";
+import Auth from "./Pages/Auth";
+// import zblogo from "./images/zblogo.png"
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const userName = "Betti";
   const password = "halacska";
 
@@ -21,58 +22,59 @@ function App() {
     setLoggedIn(false);
   };
 
-
   let routes;
-  if(loggedIn) {
+  if (loggedIn) {
     routes = (
       <Switch>
-      <Route path="/Biography" exact>
-      <Biography loggedIn={loggedIn}/>
-    </Route>
-    <Route path="/Gallery" exact>
-      <Gallery loggedIn={loggedIn}/>
-    </Route>
-    <Route path="/Pricelist" exact>
-      <Pricelist loggedIn={loggedIn}/>
-    </Route> 
-    <Route path="/Contact" exact>
-      <Contact />
-    </Route>
-    <Route path="/Login" exact>
-      <Auth login={login} userName={userName} password={password}/>
-    </Route>
-    </Switch>
+        <Route path="/Biography" exact>
+          <Biography loggedIn={loggedIn} />
+        </Route>
+        <Route path="/Gallery" exact>
+          <Gallery loggedIn={loggedIn} />
+        </Route>
+        <Route path="/Pricelist" exact>
+          <Pricelist loggedIn={loggedIn} />
+        </Route>
+        <Route path="/Contact" exact>
+          <Contact />
+        </Route>
+        <Route path="/Login" exact>
+          <Auth login={login} userName={userName} password={password} />
+        </Route>
+      </Switch>
     );
   } else {
     routes = (
       <Switch>
-      <Route path="/Biography" exact>
-      <Biography loggedIn={loggedIn}/>
-    </Route>
-    <Route path="/Gallery" exact>
-      <Gallery />
-    </Route>
-    <Route path="/Pricelist" exact>
-      <Pricelist />
-    </Route> 
-    <Route path="/Contact" exact>
-      <Contact />
-    </Route>
-    <Route path="/Login" exact>
-      <Auth login={login} userName={userName} password={password}/>
-    </Route>
-    </Switch>
-    )
-
+        <Route path="/Biography" exact>
+          <Biography loggedIn={loggedIn} />
+        </Route>
+        <Route path="/Gallery" exact>
+          <Gallery />
+        </Route>
+        <Route path="/Pricelist" exact>
+          <Pricelist />
+        </Route>
+        <Route path="/Contact" exact>
+          <Contact />
+        </Route>
+        <Route path="/Login" exact>
+          <Auth login={login} userName={userName} password={password} />
+        </Route>
+      </Switch>
+    );
   }
 
   return (
-    <Router>
-      <h1>Zentai-Beauty</h1>
-      <Navigation />
-      <button onClick={logout}>Kijelentkezés</button>
-      <main>{routes}</main>
+    <React.Fragment>
+      <Router>
+        {/* <img src={zblogo}></img> */}
+        <h1>Zentai-Beauty</h1>
+        <Navigation />
+        <button onClick={logout}>Kijelentkezés</button>
+        <main>{routes}</main>
       </Router>
+    </React.Fragment>
   );
 }
 
