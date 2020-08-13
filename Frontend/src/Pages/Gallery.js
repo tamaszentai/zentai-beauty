@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import GalleryItem from "./GalleryItem";
-import LoadingSpinner from '../Components/LoadingSpinner/loadingSpinner';
+import LoadingSpinner from "../Components/LoadingSpinner/loadingSpinner";
 
 const Gallery = (props) => {
   const [galleryData, setGalleryData] = useState();
@@ -25,11 +25,10 @@ const Gallery = (props) => {
           key={index}
         ></GalleryItem>
       );
-    }); 
+    });
   } else {
-    galleryItem = <LoadingSpinner />
+    galleryItem = <LoadingSpinner />;
   }
-
 
   const titleChangeHandler = (event) => {
     const newTitle = event.target.value;
@@ -37,12 +36,39 @@ const Gallery = (props) => {
   };
 
   const fileChangeHandler = (event) => {
-    const newFile = event.target.value;
-    setFile(newFile);
+    if(event.target.files[0]){
+    setFile(event.target.files[0]);
+    }
   };
 
-  const pictureUploadHandler = (event) => {
+  const pictureUploadHandler = async (event) => {
     event.preventDefault();
+
+    try {
+      if (file !== '') {
+        // Creating a FormData object
+        let fileData = new FormData();
+
+        // Adding the 'image' field and the selected file as value to our FormData object
+        // Changing file name to make it unique and avoid potential later overrides
+        fileData.set(
+          'image',
+          file
+          // `${Date.now()}-${file.name}`
+        );
+
+        await axios({
+          method: 'post',
+          url: "http://localhost:5000/api/gallery",
+          data: fileData,
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
+        .then( ( response ) => console.log(response.data.fileLocation))
+      }
+      
+    } catch (error) {
+     
+    }
   };
 
   let pictureUpload;
@@ -51,7 +77,11 @@ const Gallery = (props) => {
     pictureUpload = (
       <form onSubmit={pictureUploadHandler}>
         <input type="text" onChange={titleChangeHandler}></input>
-        <input type="file" onChange={fileChangeHandler}></input>
+        <input
+          type="file"
+          onChange={fileChangeHandler}
+          accept=".jpg,.png,.jpeg"
+        ></input>
         <button>Feltöltés</button>
       </form>
     );

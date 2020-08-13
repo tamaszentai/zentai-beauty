@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import LoadingSpinner from '../Components/LoadingSpinner/loadingSpinner';
-
 const Biography = (props) => {
   const [bio, setBio] = useState();
   const [originalBio, setOriginalBio] = useState("");
@@ -23,11 +21,10 @@ const Biography = (props) => {
   };
 
   const bioUpdateHandler = (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     axios.patch("http://localhost:5000/api/bio/5f242ecbc8c0e00aa2650206", {
       bio: bio,
     });
-    setOriginalBio(bio);
   };
 
   if (props.loggedIn) {
