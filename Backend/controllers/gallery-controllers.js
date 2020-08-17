@@ -23,14 +23,17 @@ const getGallery = async (req, res, next) => {
 };
 
 const createGalleryItem = async (req, res, next) => {
-  try {
+  try {  
     if (!req.file) {
       res.status(400).send('Error, could not upload file');
       return;
     }
+    const description = req.body.description;
+    console.log(description);
 
     // Create new blob in the bucket referencing the file
     const blob = bucket.file(req.file.originalname);
+    
 
     // Create writable stream and specifying file mimetype
     const blobWriter = blob.createWriteStream({
@@ -51,6 +54,17 @@ const createGalleryItem = async (req, res, next) => {
       res
         .status(200)
         .send({ fileName: req.file.originalname, fileLocation: publicUrl });
+        const url = publicUrl;
+        console.log(url);
+        const info = {
+          description: description,
+          url: url
+        }
+        const galleryItem = new GalleryItemModel(info);
+        if (url !== null){
+          galleryItem.save();
+        }
+
     });
 
     // When there is no more data to be consumed from the stream

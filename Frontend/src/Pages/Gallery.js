@@ -6,7 +6,7 @@ import LoadingSpinner from "../Components/LoadingSpinner/loadingSpinner";
 const Gallery = (props) => {
   const [galleryData, setGalleryData] = useState();
   const [file, setFile] = useState("");
-  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
 
   useEffect(() => {
     axios.get("http://localhost:5000/api/gallery").then((res) => {
@@ -30,14 +30,14 @@ const Gallery = (props) => {
     galleryItem = <LoadingSpinner />;
   }
 
-  const titleChangeHandler = (event) => {
-    const newTitle = event.target.value;
-    setTitle(newTitle);
+  const descriptionHandler = (event) => {
+    const newDescription = event.target.value;
+    setDescription(newDescription);
   };
 
-  const fileChangeHandler = (event) => {
-    if(event.target.files[0]){
-    setFile(event.target.files[0]);
+  const fileHandler = (event) => {
+    if (event.target.files[0]) {
+      setFile(event.target.files[0]);
     }
   };
 
@@ -45,30 +45,26 @@ const Gallery = (props) => {
     event.preventDefault();
 
     try {
-      if (file !== '') {
+      if (file !== "") {
         // Creating a FormData object
-        let fileData = new FormData();
-
+        const fileData = new FormData();
+        fileData.append("file", file);
+        fileData.append("description", description);
         // Adding the 'image' field and the selected file as value to our FormData object
         // Changing file name to make it unique and avoid potential later overrides
-        fileData.set(
-          'image',
-          file
-          // `${Date.now()}-${file.name}`
-        );
 
-        await axios({
-          method: 'post',
-          url: "http://localhost:5000/api/gallery",
-          data: fileData,
-          headers: { 'Content-Type': 'multipart/form-data' },
-        })
-        .then( ( response ) => console.log(response.data.fileLocation))
+        await axios
+          .post("http://localhost:5000/api/gallery", fileData, {
+            headers: {
+              accept: "application/json",
+              "Content-Type": `multipart/form-data`,
+            },
+          })
+          .then((response) =>
+            console.log(response.data.fileLocation, response.data.fileName)
+          );
       }
-      
-    } catch (error) {
-     
-    }
+    } catch (error) {}
   };
 
   let pictureUpload;
@@ -76,10 +72,10 @@ const Gallery = (props) => {
   if (props.loggedIn) {
     pictureUpload = (
       <form onSubmit={pictureUploadHandler}>
-        <input type="text" onChange={titleChangeHandler}></input>
+        <input type="text" onChange={descriptionHandler}></input>
         <input
           type="file"
-          onChange={fileChangeHandler}
+          onChange={fileHandler}
           accept=".jpg,.png,.jpeg"
         ></input>
         <button>Feltöltés</button>
