@@ -14,6 +14,7 @@ const Gallery = (props) => {
     });
   }, []);
 
+
   let galleryItem = null;
 
   if (galleryData) {
@@ -23,6 +24,8 @@ const Gallery = (props) => {
           description={picture.description}
           url={picture.url}
           key={index}
+          id={picture._id}
+          loggedIn={props.loggedIn}
         ></GalleryItem>
       );
     });
@@ -46,18 +49,15 @@ const Gallery = (props) => {
 
     try {
       if (file !== "") {
-        // Creating a FormData object
         const fileData = new FormData();
         fileData.append("file", file);
         fileData.append("description", description);
-        // Adding the 'image' field and the selected file as value to our FormData object
-        // Changing file name to make it unique and avoid potential later overrides
 
         await axios
           .post("http://localhost:5000/api/gallery", fileData, {
             headers: {
               accept: "application/json",
-              "Content-Type": `multipart/form-data`,
+              "Content-Type": "multipart/form-data",
             },
           })
           .then((response) =>

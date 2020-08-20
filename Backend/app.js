@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const config = require("config");
+const path = require('path');
 
 const bioRoutes = require("./routes/bio-routes");
 const galleryRoutes = require("./routes/gallery-routes");
@@ -12,6 +13,8 @@ const db = config.get("mongoURI");
 const app = express();
 
 app.use(express.json());
+
+app.use('/uploads/images', express.static(path.join('uploads','images')));
 
 app.use(cors());
 
