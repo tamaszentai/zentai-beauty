@@ -7,12 +7,15 @@ import Gallery from "./Pages/Gallery";
 import Pricelist from "./Pages/Pricelist";
 import Contact from "./Pages/Contact";
 import Auth from "./Pages/Auth";
-// import zblogo from "./images/zblogo.png"
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
+
   const userName = "Betti";
   const password = "halacska";
+
+  const toggle = () => setIsOpen(!isOpen);
 
   const login = () => {
     setLoggedIn(true);

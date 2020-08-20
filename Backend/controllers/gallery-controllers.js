@@ -1,6 +1,7 @@
 const GalleryItemModel = require("../models/gallery-item");
 const multer = require("multer");
 const fs = require("fs");
+const { send } = require("process");
 
 const getGallery = async (req, res, next) => {
   const galleryItem = await GalleryItemModel.find({});
@@ -19,6 +20,7 @@ const createGalleryItem = async (req, res, next) => {
   })
   try {
   galleryItem.save();
+  res.json(galleryItem);
   } catch (err) {
     res.status(500).send(err);
   }
