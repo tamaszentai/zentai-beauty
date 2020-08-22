@@ -21,10 +21,11 @@ const Biography = (props) => {
   };
 
   const bioUpdateHandler = (event) => {
-    // event.preventDefault();
-    axios.patch("http://localhost:5000/api/bio/5f242ecbc8c0e00aa2650206", {
-      bio: bio,
-    });
+    event.preventDefault();
+    axios.patch("http://localhost:5000/api/bio/5f242ecbc8c0e00aa2650206", {bio: bio}).then((res) => {
+      const updatedBio = res.data.bio;
+      setOriginalBio(updatedBio);
+    })
   };
 
   if (props.loggedIn) {
