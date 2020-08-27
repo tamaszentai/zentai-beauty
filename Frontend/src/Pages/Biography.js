@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import BioModal from './BioModal';
 
 const Biography = (props) => {
   const [bio, setBio] = useState();
@@ -16,8 +18,8 @@ const Biography = (props) => {
   let bioBox;
 
   const bioChangeHandler = (event) => {
-    const newBio = event.target.value;
-    setBio(newBio);
+
+    setBio(event.target.value);
   };
 
   const bioUpdateHandler = (event) => {
@@ -32,12 +34,11 @@ const Biography = (props) => {
     bioBox = (
       <form onSubmit={bioUpdateHandler}>
         <textarea
-          cols="30"
+          cols="50"
           rows="5"
           placeholder={originalBio}
           onChange={bioChangeHandler}
         ></textarea>
-        <button>Update</button>
       </form>
     );
   }
@@ -45,7 +46,7 @@ const Biography = (props) => {
   return (
     <div className="bio">
       <h1>Bemutatkozás</h1>
-      {bioBox}
+      <BioModal buttonLabel='Szerkesztés' bioBox={bioBox} bioUpdateHandler={bioUpdateHandler} />
       <h3>{originalBio}</h3>
     </div>
   );

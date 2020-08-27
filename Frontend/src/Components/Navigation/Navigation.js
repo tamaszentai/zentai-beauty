@@ -14,8 +14,6 @@ import {
   DropdownItem,
   NavbarText,
 } from "reactstrap";
-import "bootstrap/dist/css/bootstrap.min.css";
-
 import "./Navigation.css";
 
 const Navigation = () => {
@@ -63,6 +61,7 @@ const Navigation = () => {
           <Link to="/Pricelist">Árjegyzék</Link>
           <Link to="/Contact">Elérhetőségek</Link>
           <Link to="/Login">Bejelentkezés</Link>
+          <Link to="/BioModal">Szar</Link>
         </div>
       </main>
     </React.Fragment>

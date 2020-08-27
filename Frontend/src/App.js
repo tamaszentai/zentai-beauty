@@ -7,6 +7,7 @@ import Gallery from "./Pages/Gallery";
 import Pricelist from "./Pages/Pricelist";
 import Contact from "./Pages/Contact";
 import Auth from "./Pages/Auth";
+import BioModal from "./Pages/BioModal";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -43,6 +44,9 @@ function App() {
         </Route>
         <Route path="/Login" exact>
           <Auth login={login} userName={userName} password={password} />
+        </Route>
+        <Route path="/BioModal" exact>
+          <BioModal />
         </Route>
       </Switch>
     );

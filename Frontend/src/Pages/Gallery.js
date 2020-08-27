@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import GalleryItem from "./GalleryItem";
 import LoadingSpinner from "../Components/LoadingSpinner/loadingSpinner";
+import Slideshow from '../Components/Slideshow/Slideshow';
 
 const Gallery = (props) => {
   const [galleryData, setGalleryData] = useState();
@@ -103,6 +104,7 @@ const Gallery = (props) => {
   return (
     <div>
       <h1>Galéria</h1>
+      { galleryData ? <Slideshow galleryData={galleryData}/> : null }
       {pictureUpload}
       {galleryItem}
     </div>
