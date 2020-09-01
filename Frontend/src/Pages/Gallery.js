@@ -3,16 +3,17 @@ import axios from "axios";
 import GalleryItem from "./GalleryItem";
 import LoadingSpinner from "../Components/LoadingSpinner/loadingSpinner";
 import Slideshow from '../Components/Slideshow/Slideshow';
+import { connect } from "react-redux";
+import { getGallery } from '../actions/galleryActions'
 
 const Gallery = (props) => {
-  const [galleryData, setGalleryData] = useState();
+  const { galleryData } = props.gallery;
+
   const [file, setFile] = useState("");
   const [description, setDescription] = useState("");
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/gallery").then((res) => {
-      setGalleryData(res.data);
-    });
+    props.getGallery()
   }, []);
 
   const pictureDeleteHandler = (id) => {
@@ -20,7 +21,6 @@ const Gallery = (props) => {
     .then((res) => {
       if (200 === res.status) {
         const filteredArray = galleryData.filter(image => image._id !== id)
-        setGalleryData(filteredArray);
         console.log("deleted", galleryData);
         
       }
@@ -76,7 +76,7 @@ const Gallery = (props) => {
           .then((res) => {
             if (200 === res.status) {
               const newGallery = [res.data, ...galleryData];
-              setGalleryData(newGallery);
+              
               
             }
           });
@@ -104,11 +104,15 @@ const Gallery = (props) => {
   return (
     <div>
       <h1>Galéria</h1>
-      { galleryData ? <Slideshow galleryData={galleryData}/> : null }
+      { galleryData? <Slideshow galleryData={galleryData}/> : null }
       {pictureUpload}
       {galleryItem}
     </div>
   );
 };
 
-export default Gallery;
+const mapStateToProps = (state) => ({
+  gallery: state.gallery
+});
+
+export default connect(mapStateToProps, { getGallery })(Gallery);

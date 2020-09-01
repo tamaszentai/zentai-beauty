@@ -1,7 +1,7 @@
-import { GET_BIO, UPDATE_BIO } from '../actions/types';
+import { GET_BIO, UPDATE_BIO } from "../actions/types";
 
 const initialState = {
-  bio: []
+  bio: [],
 };
 
 export default function (state = initialState, action) {
@@ -9,15 +9,16 @@ export default function (state = initialState, action) {
     case GET_BIO:
       return {
         ...state,
-        bio: action.payload
+        bio: action.payload,
       };
-      case UPDATE_BIO:
-        return {
-          ...state,
-          bio: state.bio.map((bio) =>
-          bio._id === action.payload._id ? action.payload : bio)
-        };
-        default:
-          return state;
+    case UPDATE_BIO:
+      return {
+        ...state,
+        bio: state.bio.map((bio) =>
+          bio._id === action.payload._id ? action.payload : bio
+        ),
+      };
+    default:
+      return state;
   }
 }
