@@ -1,9 +1,9 @@
 const bioModel = require("../models/bio");
 
 const getBio = async (req, res, next) => {
-  const bio = await bioModel.find({});
+  const bio = await bioModel.find();
   try {
-    res.send(bio);
+    res.json(bio);
   } catch (err) {
     res.status(500).send(err);
   }

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Provider } from "react-redux";
 import "./App.css";
 import Navigation from "./Components/Navigation/Navigation";
 import Biography from "./Pages/Biography";
@@ -8,6 +9,7 @@ import Pricelist from "./Pages/Pricelist";
 import Contact from "./Pages/Contact";
 import Auth from "./Pages/Auth";
 import BioModal from "./Pages/BioModal";
+import store from './store';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -73,7 +75,7 @@ function App() {
   }
 
   return (
-    <React.Fragment>
+    <Provider store={store}>
       <Router>
         {/* <img src={zblogo}></img> */}
         <h1>Zentai-Beauty</h1>
@@ -81,7 +83,7 @@ function App() {
         <button onClick={logout}>Kijelentkezés</button>
         <main>{routes}</main>
       </Router>
-    </React.Fragment>
+    </Provider>
   );
 }
 

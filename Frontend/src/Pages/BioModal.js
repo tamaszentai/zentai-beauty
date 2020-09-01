@@ -1,37 +1,46 @@
 import React, { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { connect } from "react-redux";
+import { updateBio } from "../actions/bioActions";
 
 const BioModal = (props) => {
-  const {
-    buttonLabel,
-    className
-  } = props;
 
   const [modal, setModal] = useState(false);
-
   const toggle = () => setModal(!modal);
+  const [updatedBio, setUpdatedBio] = useState(props.bio);
+
+
+  const onChangeHandler = (event) => {
+    setUpdatedBio(event.target.value);
+  }
+
+  const submitFormHandler = (event) => {
+    event.preventDefault();
+    props.updateBio(updatedBio);
+    toggle();
+
+  };
 
   
-  // const wrapperFunction = () => {
-  //   props.bioUpdateHandler();
-  //   toggle(); 
-  // }
-
   return (
     <div>
-      <Button color="danger" onClick={toggle}>{buttonLabel}</Button>
-      <Modal isOpen={modal} toggle={toggle} className={className}>
-        <ModalHeader toggle={toggle}>Modal title</ModalHeader>
+      <Button color="danger" onClick={toggle}>{props.buttonLabel}</Button>
+      <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader toggle={toggle}>Szerkesztés</ModalHeader>
         <ModalBody>
-          {props.bioBox}
-        </ModalBody>
-        <ModalFooter>
-          <Button color="primary" onClick={props.bioUpdateHandler}>Do Something</Button>{' '}
+          <form onSubmit={submitFormHandler}>
+            <textarea onChange={onChangeHandler}>{props.bio}</textarea>
+            <Button color="primary" type="submit">Szerkesztés</Button>{' '}
           <Button color="secondary" onClick={toggle}>Cancel</Button>
-        </ModalFooter>
+          </form>
+        </ModalBody>
       </Modal>
     </div>
   );
 }
 
-export default BioModal;
+const mapStateToProps = (state) => ({
+  biography: state.biography
+})
+
+export default connect(mapStateToProps, { updateBio })(BioModal);
