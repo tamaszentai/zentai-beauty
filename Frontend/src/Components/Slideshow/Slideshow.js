@@ -54,8 +54,8 @@ const Slideshow = (props) => {
         onExited={() => setAnimating(false)}
         key={item.url}
       >
-        <img src={`http://localhost:5000/${item.url}`} alt={item.description} width="300" height="300" />
-        <CarouselCaption className="text-danger" captionText={item.description} captionHeader={item.description} />
+        <img src={item.src} alt={item.caption} width="auto" height="400" />
+        <CarouselCaption className="text-danger" captionText={item.caption} captionHeader={item.caption} />
       </CarouselItem>
     );
   });

@@ -13,10 +13,11 @@ const getGallery = async (req, res, next) => {
 };
 
 const createGalleryItem = async (req, res, next) => {
-  const description = req.body.description;
+  const caption = req.body.caption;
   const galleryItem = await GalleryItemModel({
-    description,
-    url: req.file.path
+    caption,
+    src: `http://localhost:5000/${req.file.path}`,
+    thumbnail: `http://localhost:5000/${req.file.path}`
   })
   try {
   galleryItem.save();
@@ -31,8 +32,8 @@ const deleteGalleryItem = async (req, res, next) => {
   const galleryItem = await GalleryItemModel.findByIdAndDelete(req.params.id);
   try {
     res.send(galleryItem);
-    console.log(galleryItem.url);
-    fs.unlinkSync(galleryItem.url);
+    console.log(galleryItem.src);
+    fs.unlinkSync(galleryItem.src);
   } catch (err) {
     res.status(500).send(err);
   }

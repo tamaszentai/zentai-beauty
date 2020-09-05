@@ -1,11 +1,15 @@
 const mongoose = require('mongoose');
 
 const GalleryItemSchema = new mongoose.Schema({
-  description: {
+  caption: {
     type: String,
     required: true
   },
-  url: {
+  src: {
+    type: String,
+    required: true
+  },
+  thumbnail: {
     type: String,
     required: true
   }

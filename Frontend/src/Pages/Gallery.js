@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import GalleryItem from "./GalleryItem";
 import LoadingSpinner from "../Components/LoadingSpinner/loadingSpinner";
 import Slideshow from "../Components/Slideshow/Slideshow";
 import { connect } from "react-redux";
 import { getGallery, addGalleryItem, deleteGalleryItem } from "../actions/galleryActions";
+import GridGallery from '../Components/GridGallery/GridGallery';
+
 
 const Gallery = (props) => {
   const { galleryData } = props.gallery;
 
   const [file, setFile] = useState("");
-  const [description, setDescription] = useState("");
+  const [caption, setCaption] = useState("");
 
   // Fetching galleryData
   useEffect(() => {
@@ -28,8 +29,8 @@ const Gallery = (props) => {
     galleryItem = galleryData.map((picture, index) => {
       return (
         <GalleryItem
-          description={picture.description}
-          url={picture.url}
+          caption={picture.caption}
+          src={picture.src}
           key={index}
           id={picture._id}
           loggedIn={props.loggedIn}
@@ -41,9 +42,9 @@ const Gallery = (props) => {
     galleryItem = <LoadingSpinner />;
   }
 
-  const descriptionHandler = (event) => {
-    const newDescription = event.target.value;
-    setDescription(newDescription);
+  const captionHandler = (event) => {
+    const newCaption = event.target.value;
+    setCaption(newCaption);
   };
 
   const fileHandler = (event) => {
@@ -53,13 +54,13 @@ const Gallery = (props) => {
   };
 
   // galleryItem uploading
-  const pictureUploadHandler = async (event) => {
+  const pictureUploadHandler = (event) => {
     event.preventDefault();
 
     if (file !== "") {
       const fileData = new FormData();
       fileData.append("file", file);
-      fileData.append("description", description);
+      fileData.append("caption", caption);
       props.addGalleryItem(fileData);
     }
   };
@@ -69,7 +70,7 @@ const Gallery = (props) => {
   if (props.loggedIn) {
     pictureUpload = (
       <form onSubmit={pictureUploadHandler}>
-        <input type="text" onChange={descriptionHandler}></input>
+        <input type="text" onChange={captionHandler}></input>
         <input
           type="file"
           onChange={fileHandler}
@@ -86,6 +87,7 @@ const Gallery = (props) => {
       {galleryData ? <Slideshow galleryData={galleryData} /> : null}
       {pictureUpload}
       {galleryItem}
+      <GridGallery />
     </div>
   );
 };
