@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import GalleryItem from "./GalleryItem";
 import LoadingSpinner from "../Components/LoadingSpinner/loadingSpinner";
-import Slideshow from '../Components/Slideshow/Slideshow';
+import Slideshow from "../Components/Slideshow/Slideshow";
 import { connect } from "react-redux";
-import { getGallery } from '../actions/galleryActions'
+import { getGallery, addGalleryItem, deleteGalleryItem } from "../actions/galleryActions";
 
 const Gallery = (props) => {
   const { galleryData } = props.gallery;
@@ -12,19 +12,14 @@ const Gallery = (props) => {
   const [file, setFile] = useState("");
   const [description, setDescription] = useState("");
 
+  // Fetching galleryData
   useEffect(() => {
-    props.getGallery()
+    props.getGallery();
   }, []);
 
+  // Delete galleryItem
   const pictureDeleteHandler = (id) => {
-    axios.delete("http://localhost:5000/api/gallery/" + id)
-    .then((res) => {
-      if (200 === res.status) {
-        const filteredArray = galleryData.filter(image => image._id !== id)
-        console.log("deleted", galleryData);
-        
-      }
-    });
+    props.deleteGalleryItem(id);
   };
 
   let galleryItem = null;
@@ -57,32 +52,16 @@ const Gallery = (props) => {
     }
   };
 
+  // galleryItem uploading
   const pictureUploadHandler = async (event) => {
     event.preventDefault();
-    try {
-      if (file !== "") {
-        const fileData = new FormData();
-        fileData.append("file", file);
-        fileData.append("description", description);
 
-        await axios
-          .post("http://localhost:5000/api/gallery", fileData, {
-            headers: {
-              accept: "application/json",
-              "Content-Type": "multipart/form-data",
-            },
-          })
-
-          .then((res) => {
-            if (200 === res.status) {
-              const newGallery = [res.data, ...galleryData];
-              
-              
-            }
-          });
-
-        }   
-    } catch (error) {}
+    if (file !== "") {
+      const fileData = new FormData();
+      fileData.append("file", file);
+      fileData.append("description", description);
+      props.addGalleryItem(fileData);
+    }
   };
 
   let pictureUpload;
@@ -104,7 +83,7 @@ const Gallery = (props) => {
   return (
     <div>
       <h1>Galéria</h1>
-      { galleryData? <Slideshow galleryData={galleryData}/> : null }
+      {galleryData ? <Slideshow galleryData={galleryData} /> : null}
       {pictureUpload}
       {galleryItem}
     </div>
@@ -112,7 +91,9 @@ const Gallery = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-  gallery: state.gallery
+  gallery: state.gallery,
 });
 
-export default connect(mapStateToProps, { getGallery })(Gallery);
+export default connect(mapStateToProps, { getGallery, addGalleryItem, deleteGalleryItem })(
+  Gallery
+);

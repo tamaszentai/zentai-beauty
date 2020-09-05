@@ -24,7 +24,7 @@ const BioModal = (props) => {
   
   return (
     <div>
-      <Button color="danger" onClick={toggle}>{props.buttonLabel}</Button>
+      <Button color="success" onClick={toggle}>{props.buttonLabel}</Button>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Szerkesztés</ModalHeader>
         <ModalBody>
