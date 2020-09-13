@@ -29,13 +29,13 @@
 }
 
 .gallery {
-  background-color: green;
+  background-color: #F7DEFB;
   /* grid-area: 2 / 2 / 5 / 5; */
   grid-area: content;
 }
 
 .pricelist {
-  background-color: salmon;
+  background-color: #F7DEFB;
   /* grid-area: 2 / 2 / 5 / 5; */
   grid-area: content;
 }

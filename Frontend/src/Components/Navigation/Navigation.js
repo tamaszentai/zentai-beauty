@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import "./Navigation.css";
 import logo from "../../images/zblogo.png";
 import signinout from "../../images/signinout.png";
+import AuthModal from '../AuthModal/AuthModal';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,7 +20,7 @@ const Navigation = () => {
           <li><Link to="/Biography">Bemutatkozás</Link></li>
           <li><Link to="/Gallery">Galéria</Link></li>
           <li><Link to="/Pricelist">Árjegyzék</Link></li>
-          <li><Link to="/Login"><img className="loginlogo" src={signinout} /></Link></li>
+          <li><AuthModal /></li>
           </ul>
         </div>
       </main>

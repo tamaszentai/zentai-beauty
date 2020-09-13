@@ -62,13 +62,13 @@ const BioModal = (props) => {
       >
         <Fade in={open}>
           <div className={classes.paper}>
+          <h2 id="transition-modal-title">Bemutatkozás szerkesztése</h2>
             <form onSubmit={updateBio}>
               <textarea rows="3" cols="50" onChange={bioChangeHandler}>{props.bio}</textarea>
+              <br />
+              <br />
               <button type="submit">Szerkesztés</button>
             </form>
-            <h2 id="transition-modal-title">Transition modal</h2>
-            <p id="transition-modal-description">react-transition-group animates me.</p>
-            
           </div>
         </Fade>
       </Modal>

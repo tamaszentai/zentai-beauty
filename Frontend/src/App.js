@@ -6,7 +6,7 @@ import Navigation from "./Components/Navigation/Navigation";
 import Biography from "./Pages/Biography";
 import Gallery from "./Pages/Gallery";
 import Pricelist from "./Pages/Pricelist";
-import Auth from "./Pages/Auth";
+import AuthModal from "./Components/AuthModal/AuthModal";
 import store from "./store";
 
 function App() {
@@ -51,9 +51,9 @@ function App() {
                 <Pricelist />
               </div>
             </Route>
-            <Route path="/Login" exact>
-              <Auth login={login} userName={userName} password={password} />
-            </Route>
+            {/* <Route path="/Login" exact>
+              <AuthModal />
+            </Route> */}
           </Switch>
         </Router>
       </Provider>
