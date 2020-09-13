@@ -1,3 +1,48 @@
 .navigation {
   text-align: center;
+  
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #FCF4FF;
+}
+
+li {
+  float: left;
+
+}
+
+li a {
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  color: gray;
+  text-shadow: 1px 1px;
+}
+
+.active {
+  background-color: #4CAF50;
+}
+
+.logo {
+  height: 150px;
+  float: left;
+}
+
+h1 {
+  float: left;
+}
+
+.loginlogo {
+  float: right;
+  height: 50px;
 }

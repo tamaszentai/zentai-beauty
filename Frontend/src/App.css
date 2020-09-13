@@ -1,0 +1,41 @@
+.container {
+  background-color: white;
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 4fr 1fr;
+  grid-template-areas: 
+  /* " header header header header header" */
+  "navigation navigation navigation navigation navigation"
+  ". content content content ." 
+  ". content content content ." 
+  " footer footer footer footer footer";
+  grid-gap: 5px;
+}
+
+.navigation {
+  /* background-color: yellow; */
+  /* grid-area: 1 / 1 / 1 / 6; */
+  grid-area: navigation;
+  
+}
+
+
+.biography {
+  background-color: #F7DEFB;
+  /* grid-area: 2 / 2 / 5 / 5; */
+  grid-area: content;
+}
+
+.gallery {
+  background-color: green;
+  /* grid-area: 2 / 2 / 5 / 5; */
+  grid-area: content;
+}
+
+.pricelist {
+  background-color: salmon;
+  /* grid-area: 2 / 2 / 5 / 5; */
+  grid-area: content;
+}

@@ -11,7 +11,7 @@ const GalleryItem = (props) => {
     <div>
       <h3>{props.caption}</h3>
       <h4>{props.id}</h4>
-      <img src={props.src} width="300"></img>
+      <img src={props.src} height="300"></img>
       {button}
     </div>
   );

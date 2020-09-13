@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import GalleryItem from "./GalleryItem";
 import LoadingSpinner from "../Components/LoadingSpinner/loadingSpinner";
-import Slideshow from "../Components/Slideshow/Slideshow";
 import { connect } from "react-redux";
 import { getGallery, addGalleryItem, deleteGalleryItem } from "../actions/galleryActions";
-import GridGallery from '../Components/GridGallery/GridGallery';
 
 
 const Gallery = (props) => {
@@ -62,6 +60,9 @@ const Gallery = (props) => {
       fileData.append("file", file);
       fileData.append("caption", caption);
       props.addGalleryItem(fileData);
+      setFile('');
+      setCaption('');
+      event.target.reset();
     }
   };
 
@@ -82,12 +83,11 @@ const Gallery = (props) => {
   }
 
   return (
-    <div>
+    <div className="gallery content">
       <h1>Galéria</h1>
-      {galleryData ? <Slideshow galleryData={galleryData} /> : null}
+      {/* {galleryData ? <Slideshow galleryData={galleryData} /> : null} */}
       {pictureUpload}
       {galleryItem}
-      <GridGallery />
     </div>
   );
 };

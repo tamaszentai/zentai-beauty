@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { getBio } from "../actions/bioActions";
-import BioModal from "./BioModal";
+import './Biography.css';
+import BioModal from '../Components/BioModal/BioModal';
 
 const Biography = (props) => {
   const { bio } = props.biography;
@@ -14,10 +15,10 @@ const Biography = (props) => {
   const bioItem = bio.map((item) => item.bio);
 
   return (
-    <div className="bio">
+    <div className="biography">
       <h1>Bemutatkozás</h1>
       <h2>{bioItem}</h2>
-      <BioModal buttonLabel="Szerkesztés" bio={bioItem} />
+      <BioModal bio={bioItem}/>
     </div>
   );
 };
