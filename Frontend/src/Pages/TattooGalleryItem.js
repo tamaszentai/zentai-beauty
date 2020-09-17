@@ -1,6 +1,6 @@
 import React from "react";
 
-const GalleryItem = (props) => {
+const TattooGalleryItem = (props) => {
   let button = null;
 
   if (props.loggedIn) {
@@ -9,10 +9,12 @@ const GalleryItem = (props) => {
 
   return (
     <div>
-      <img src={props.src} alt={props.caption} height="300" onClick={props.handleOpen}></img>
+      <h3>{props.caption}</h3>
+      <h4>{props.id}</h4>
+      <img src={props.src} height="300"></img>
       {button}
     </div>
   );
 };
 
-export default GalleryItem;
+export default TattooGalleryItem;

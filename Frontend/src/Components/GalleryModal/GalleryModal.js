@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import signinout from "../../images/signinout.png";
+import GalleryItem from '../../Pages/GalleryItem';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -19,8 +20,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AuthModal = (props) => {
-  const [updatedBio, setUpdatedBio] = useState(props.bio);
+const GalleryModal = (props) => {
+
 
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -33,9 +34,25 @@ const AuthModal = (props) => {
     setOpen(false);
   };
 
+  let galleryItem = props.galleryData.map((picture, index) => {
+    return (
+      <GalleryItem
+        handleOpen={handleOpen}
+        src={picture.src}
+       
+        
+      />
+    );
+  });
+
+
+  
+
   return (
     <div>
-      <img className="loginlogo" src={signinout} onClick={handleOpen} style={{cursor: 'pointer'}} />
+      
+        {galleryItem}
+      
       <Modal
         aria-labelledby="transition-modal-title"
         aria-describedby="transition-modal-description"
@@ -50,16 +67,11 @@ const AuthModal = (props) => {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <h2 id="transition-modal-title">Bejelentkezés</h2>
-            <form>
-              <input type="text" placeholder="Felhasználónév"></input>
-              <br />
-              <br />
-              <input type="password" placeholder="Jelszó"></input>
-              <br />
-              <br />
-              <button type="submit">Bejelentkezés</button>
-            </form>
+            <h2 id="transition-modal-title">Galéria</h2>
+          
+
+
+
           </div>
         </Fade>
       </Modal>
@@ -67,4 +79,4 @@ const AuthModal = (props) => {
   );
 };
 
-export default AuthModal;
+export default GalleryModal;

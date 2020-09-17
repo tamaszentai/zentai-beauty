@@ -5,9 +5,10 @@ import "./App.css";
 import Navigation from "./Components/Navigation/Navigation";
 import Biography from "./Pages/Biography";
 import Gallery from "./Pages/Gallery";
+import TattooGallery from "./Pages/TattooGallery";
 import Pricelist from "./Pages/Pricelist";
-import AuthModal from "./Components/AuthModal/AuthModal";
 import store from "./store";
+import SimpleReactLightbox from "simple-react-lightbox";
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(true);
@@ -43,7 +44,14 @@ function App() {
             </Route>
             <Route path="/Gallery" exact>
               <div className="gallery">
+                <SimpleReactLightbox>
                 <Gallery loggedIn={loggedIn} />
+                </SimpleReactLightbox>
+              </div>
+            </Route>
+            <Route path="/TattooGallery" exact>
+              <div className="tattoogallery">
+                <TattooGallery loggedIn={loggedIn} />
               </div>
             </Route>
             <Route path="/Pricelist" exact>

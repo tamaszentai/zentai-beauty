@@ -26,6 +26,7 @@ const BioModal = (props) => {
   const updateBio = (event) => {
     event.preventDefault();
     props.updateBio(updatedBio);
+    handleClose();
   }
 
   const bioChangeHandler = (event) => {

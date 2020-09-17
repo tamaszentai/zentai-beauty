@@ -1,15 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import GalleryItem from "./GalleryItem";
 import LoadingSpinner from "../Components/LoadingSpinner/loadingSpinner";
 import { connect } from "react-redux";
-import { getGallery, addGalleryItem, deleteGalleryItem } from "../actions/galleryActions";
+import {
+  getGallery,
+  addGalleryItem,
+  deleteGalleryItem,
+} from "../actions/galleryActions";
+import ImageUploadModal from "../Components/ImageUploadModal/ImageUploadModal";
+// import GridList from "../Components/GridList/GridList";
+
+import { SRLWrapper } from "simple-react-lightbox";
 
 
 const Gallery = (props) => {
   const { galleryData } = props.gallery;
+  
+  const options = {
+    settings: {
+      overlayColor: "rgba(0, 0, 0, 0.6)",
+      autoplaySpeed: 1500,
+      transitionSpeed: 900,
+    }
+  };
 
-  const [file, setFile] = useState("");
-  const [caption, setCaption] = useState("");
 
   // Fetching galleryData
   useEffect(() => {
@@ -40,54 +54,15 @@ const Gallery = (props) => {
     galleryItem = <LoadingSpinner />;
   }
 
-  const captionHandler = (event) => {
-    const newCaption = event.target.value;
-    setCaption(newCaption);
-  };
-
-  const fileHandler = (event) => {
-    if (event.target.files[0]) {
-      setFile(event.target.files[0]);
-    }
-  };
-
-  // galleryItem uploading
-  const pictureUploadHandler = (event) => {
-    event.preventDefault();
-
-    if (file !== "") {
-      const fileData = new FormData();
-      fileData.append("file", file);
-      fileData.append("caption", caption);
-      props.addGalleryItem(fileData);
-      setFile('');
-      setCaption('');
-      event.target.reset();
-    }
-  };
-
-  let pictureUpload;
-
-  if (props.loggedIn) {
-    pictureUpload = (
-      <form onSubmit={pictureUploadHandler}>
-        <input type="text" onChange={captionHandler}></input>
-        <input
-          type="file"
-          onChange={fileHandler}
-          accept=".jpg,.png,.jpeg"
-        ></input>
-        <button>Feltöltés</button>
-      </form>
-    );
-  }
-
   return (
     <div className="gallery content">
-      <h1>Galéria</h1>
-      {/* {galleryData ? <Slideshow galleryData={galleryData} /> : null} */}
-      {pictureUpload}
-      {galleryItem}
+      <h1>Smink</h1>
+      <ImageUploadModal />
+      <SRLWrapper options={options}>
+        {/* <GridList tileData={galleryData} /> */}
+        
+{galleryItem}
+      </SRLWrapper>
     </div>
   );
 };
@@ -96,6 +71,8 @@ const mapStateToProps = (state) => ({
   gallery: state.gallery,
 });
 
-export default connect(mapStateToProps, { getGallery, addGalleryItem, deleteGalleryItem })(
-  Gallery
-);
+export default connect(mapStateToProps, {
+  getGallery,
+  addGalleryItem,
+  deleteGalleryItem,
+})(Gallery);
